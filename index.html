@@ -102,6 +102,7 @@
             <div class="language-selector">
                 <label for="language">Idioma:</label>
                 <select id="language">
+                    <option value="es">Español</option>
                     <option value="en">English</option>
                     <option value="ja">日本語 (Japonés)</option>
                     <option value="pt">Português</option>
@@ -163,24 +164,30 @@
                 updateSlide();
             } else {
                 let selectedLanguage = document.getElementById("language").value;
-                let redirectUrl = "";
 
-                switch (selectedLanguage) {
-                    case "en":
-                        redirectUrl = "https://www.example.com/en"; // Reemplazar con el enlace correcto
-                        break;
-                    case "ja":
-                        redirectUrl = "https://www.example.com/ja"; // Reemplazar con el enlace correcto
-                        break;
-                    case "pt":
-                        redirectUrl = "https://www.example.com/pt"; // Reemplazar con el enlace correcto
-                        break;
-                    case "zh":
-                        redirectUrl = "https://cnglamstore.netlify.app/"; // Enlace confirmado
-                        break;
+                if (selectedLanguage === "es") {
+                    // Si es español, solo cierra el modal sin redireccionar
+                    document.getElementById("aviso").style.display = "none";
+                } else {
+                    let redirectUrl = "";
+
+                    switch (selectedLanguage) {
+                        case "en":
+                            redirectUrl = "https://www.example.com/en"; // Reemplazar con el enlace correcto
+                            break;
+                        case "ja":
+                            redirectUrl = "https://www.example.com/ja"; // Reemplazar con el enlace correcto
+                            break;
+                        case "pt":
+                            redirectUrl = "https://www.example.com/pt"; // Reemplazar con el enlace correcto
+                            break;
+                        case "zh":
+                            redirectUrl = "https://cnglamstore.netlify.app/"; // Enlace confirmado
+                            break;
+                    }
+
+                    window.location.href = redirectUrl;
                 }
-
-                window.location.href = redirectUrl;
             }
         }
 
