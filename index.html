@@ -481,7 +481,8 @@
         .previous-versions li {
             padding: 5px 0;
         }
-      .screenshots-container {
+
+        .screenshots-container {
             position: relative;
             margin: 20px 0;
             padding: 20px 0;
@@ -560,7 +561,16 @@
             background: #0066ff;
         }
 
-        /* Animación para el cambio de imágenes */
+        .availability-warning {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 1px solid #ffeeba;
+            text-align: center;
+        }
+
         @keyframes slideIn {
             from {
                 opacity: 0;
@@ -574,36 +584,13 @@
 
         .screenshot.active {
             animation: slideIn 0.3s ease-out;
-      
         }
-          /* Agregamos solo los nuevos estilos para el carrusel */
+
         .screenshots-section {
             margin: 20px 0;
             padding: 20px;
             background: #f8f8f8;
             border-radius: 12px;
-        }
-
-        .screenshots-container {
-            position: relative;
-            overflow: hidden;
-            border-radius: 12px;
-        }
-
-        .screenshots-wrapper {
-            display: flex;
-            transition: transform 0.3s ease-out;
-            gap: 15px;
-            padding: 10px 0;
-        }
-
-        .screenshot {
-            flex: 0 0 200px;
-            width: 200px;
-            height: 400px;
-            border-radius: 12px;
-            object-fit: cover;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
         .screenshot-nav {
@@ -654,7 +641,6 @@
     </style>
 </head>
 <body>
-    <!-- Todo el HTML original permanece igual -->
     <div class="search-container">
         <div class="search-bar">
             <i class="fas fa-search search-icon"></i>
@@ -678,27 +664,42 @@
     </div>
 
     <script>
-        // Mantenemos el array de apps original y agregamos las screenshots
+        // Función para detectar el dispositivo
+        function detectDevice() {
+            const userAgent = navigator.userAgent.toLowerCase();
+            if (/iphone|ipad|ipod/.test(userAgent)) {
+                return 'ios';
+            } else if (/android/.test(userAgent)) {
+                return 'android';
+            }
+            return 'desktop';
+        }
+
+        // Array de apps actualizado con información de plataformas y disponibilidad
         const apps = [
-             {
-        "name": "Facebook",
-        "developer": "Meta",
-        "category": "Redes sociales",
-        "rating": 4.2,
-        "icon": "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg",
-        "description": "Facebook es una red social donde los usuarios pueden compartir contenido.",
-        "downloads": "403.4 M",
-        "security": true,
-        "version": "497.0.0.47.36",
-        "previousVersions": ["496.0.0.45.65", "495.0.0.45.201", "494.1.0.56.73"],
-        "downloadLink": "https://play.google.com/store/apps/details?id=com.facebook.katana",
-        "screenshots": [
-            "https://cdn6.aptoide.com/imgs/2/9/6/2962a7ba3e395c52e7b8b8534ff21399_screen.jpg",
-            "https://cdn6.aptoide.com/imgs/4/3/c/43ca4a776f89057c8c6b4ab1204c4a9d_screen.jpg",
-            "https://cdn6.aptoide.com/imgs/1/7/1/171de1bb746f31d477aa16d56c9075a0_screen.jpg"
-        ]
-    },
-    {
+            {
+                name: "Facebook",
+                developer: "Meta",
+                category: "Redes sociales",
+                rating: 4.2,
+                icon: "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg",
+                description: "Facebook es una red social donde los usuarios pueden compartir contenido.",
+                downloads: "403.4 M",
+                security: true,
+                version: "497.0.0.47.36",
+                isAvailable: true,
+                platforms: {
+                    android: "https://play.google.com/store/apps/details?id=com.facebook.katana",
+                    ios: "https://apps.apple.com/us/app/facebook/id284882215"
+                },
+                previousVersions: ["496.0.0.45.65", "495.0.0.45.201", "494.1.0.56.73"],
+                screenshots: [
+                    "https://cdn6.aptoide.com/imgs/2/9/6/2962a7ba3e395c52e7b8b8534ff21399_screen.jpg",
+                    "https://cdn6.aptoide.com/imgs/4/3/c/43ca4a776f89057c8c6b4ab1204c4a9d_screen.jpg",
+                    "https://cdn6.aptoide.com/imgs/1/7/1/171de1bb746f31d477aa16d56c9075a0_screen.jpg"
+                ]
+            },
+          {
         "name": "Twitter",
         "developer": "X Corp",
         "category": "Redes sociales",
@@ -708,6 +709,11 @@
         "downloads": "52.9 M",
         "security": true,
         "version": "10.85.0",
+        isAvailable: true,
+                platforms: {
+                    android: "https://play.google.com/store/apps/details?id=com.facebook.katana",
+                    ios: "https://apps.apple.com/us/app/facebook/id284882215"
+                },
         "previousVersions": ["10.84.0", "10.83.0", "10.82.0"],
         "downloadLink": "https://play.google.com/store/apps/details?id=com.twitter.android",
         "screenshots": [
@@ -727,6 +733,11 @@
         "downloads": "357.9 M",
         "security": true,
         "version": "13.17.0.42",
+        isAvailable: true,
+                platforms: {
+                    android: "https://play.google.com/store/apps/details?id=com.facebook.katana",
+                    ios: "https://apps.apple.com/us/app/facebook/id284882215"
+                },
         "previousVersions": ["12.43.0.56", "12.42.0.48", "12.41.0.47"],
         "downloadLink": "https://play.google.com/store/apps/details?id=com.snapchat.android",
         "screenshots": [
@@ -735,6 +746,30 @@
             "https://cdn6.aptoide.com/imgs/3/2/9/3297914f6a758c45645e91e01c1f6801_screen.png"
         ]
     },
+      {
+    "name": "TikTok",
+    "developer": "ByteDance",
+    "category": "Redes sociales",
+    "rating": 4.6,
+    "icon": "https://cdn.pixabay.com/photo/2021/06/15/12/28/tiktok-6338429_960_720.png",
+    "description": "TikTok es una aplicación para crear, ver y compartir videos cortos en un formato vertical, donde los usuarios pueden aplicar efectos especiales, música y más.",
+    "downloads": "733 millones",
+    "security": true,
+    "version": "23.2.4",
+    "isAvailable": false,
+    "platforms": {
+        "android": "https://play.google.com/store/apps/details?id=com.zhiliaoapp.musically",
+        "ios": "https://apps.apple.com/us/app/tiktok/id835599320"
+    },
+    "previousVersions": ["23.1.2", "23.0.7", "22.9.8"],
+    "downloadLink": "https://play.google.com/store/apps/details?id=com.zhiliaoapp.musically",
+    "screenshots": [
+        "https://upload.wikimedia.org/wikipedia/commons/7/72/TikTok_screenshot_1.png",
+        "https://upload.wikimedia.org/wikipedia/commons/7/70/TikTok_screenshot_2.png",
+        "https://upload.wikimedia.org/wikipedia/commons/a/a5/TikTok_screenshot_3.png"
+    ]
+},
+    
      {
         "name": "Wkype",
         "developer": "Glam Works Inc.",
@@ -745,6 +780,11 @@
         "downloads": "1K+",
         "security": true,
         "version": "2.4.5",
+       isAvailable: true,
+                platforms: {
+                    android: "https://play.google.com/store/apps/details?id=com.facebook.katana",
+                    ios: "https://apps.apple.com/us/app/facebook/id284882215"
+                },
         "previousVersions": ["2.4.4", "2.4.3", "2.4.2"],
         "downloadLink": "https://followwiki.uptodown.com/android/descargar",
         "screenshots": [
@@ -752,619 +792,28 @@
             "https://img.utdstc.com/screen/320/6c7/3206c75dc6b8fb58e5c8655b3f24341ebb41135397fc70b225f16d2b02bcd2c5:800",
             "https://img.utdstc.com/screen/b39/297/b3929746de5427195ce97976e0177f5ed47635e0568df0ca345a1d3115f24f64:800"
         ]
-    },
-    {
-        "name": "Spotify",
-        "developer": "Spotify Ltd.",
-        "category": "Música y audio",
-        "rating": 4.5,
-        "icon": "https://img.utdstc.com/icon/4ba/1ef/4ba1ef03c48c81bb20965a85d244c07ec086c20f4ec9a047828e19ecbf245490:200",
-        "description": "Spotify es una plataforma de música en streaming.",
-        "downloads": "39.9 M",
-        "security": true,
-        "version": "9.0.12.567",
-        "previousVersions": ["8.7.80.394", "8.7.70.377", "8.7.60.368"],
-        "downloadLink": "https://play.google.com/store/apps/details?id=com.spotify.music",
-        "screenshots": [
-            "https://cdn6.aptoide.com/imgs/b/a/3/ba3ca114eb2bd12024d589593f0fa7a2_screen.png",
-            "https://cdn6.aptoide.com/imgs/2/8/f/28f54ff50ca2a756c7a87ce842a232f1_screen.png",
-            "https://cdn6.aptoide.com/imgs/2/8/f/28f54ff50ca2a756c7a87ce842a232f1_screen.png",
-            "https://cdn6.aptoide.com/imgs/a/8/1/a817432484c02d6bece2e70a24a18733_screen.png"
-        ]
-    },
-    {
-        "name": "Netflix",
-        "developer": "Netflix, Inc.",
-        "category": "Entretenimiento",
-        "rating": 4.7,
-        "icon": "https://images.ctfassets.net/4cd45et68cgf/Rx83JoRDMkYNlMC9MKzcB/2b14d5a59fc3937afd3f03191e19502d/Netflix-Symbol.png?w=700&h=456",
-        "description": "Netflix es una plataforma de streaming de películas y series.",
-        "downloads": "78.8 M",
-        "security": true,
-        "version": "8.142.1 build 13 51495",
-        "previousVersions": ["8.40.0", "8.39.0", "8.38.0"],
-        "downloadLink": "https://play.google.com/store/apps/details?id=com.netflix.mediaclient",
-        "screenshots": [
-            "https://cloudfront-us-east-1.images.arcpublishing.com/infobae/DVBB256QG5GKVI2CEP2PCVLWSA.jpg",
-            "https://www.plex.tv/wp-content/uploads/2023/03/wtw-phone-netflix.png",
-            "https://fotos.e-consulta.com/browse.jpg"
-        ]
-    },
-    {
-        "name": "Uber",
-        "developer": "Uber Technologies, Inc.",
-        "category": "Transporte",
-        "rating": 4.2,
-        "icon": "https://img.utdstc.com/icon/95e/674/95e674e35c459c890dd8c5338b679a40a82bf19fe1911bf74e72cb5bdbdd7ebc:200",
-        "description": "Uber es una aplicación para solicitar transporte privado.",
-        "downloads": "12.7M+",
-        "security": true,
-        "version": "4.378.10001",
-        "previousVersions": ["4.377.10000", "4.376.10000", "4.375.10000"],
-        "downloadLink": "https://play.google.com/store/apps/details?id=com.ubercab",
-        "screenshots": [
-            "https://img.utdstc.com/screen/b90/1a3/b901a3a126fd0adf6a80e98ea4846c25a4842eae487bcfe3e627e1a6ba391bce:800",
-            "https://img.utdstc.com/screen/7ac/aac/7acaaca42a952098257d62d25e1e39da74d972cb211f8962e2667c516a14ec7e:800",
-            "https://img.utdstc.com/screen/81f/bea/81fbea724ec32f7b6687287cbb12052082de261d720c27309101aeaefc109445:800"
-        ]
-    },
-    {
-        "name": "YouTube",
-        "developer": "Google LLC",
-        "category": "Entretenimiento",
-        "rating": 4.4,
-        "icon": "https://cdn-icons-png.flaticon.com/512/174/174883.png",
-        "description": "YouTube es la plataforma líder de videos en línea.",
-        "downloads": "192.9 M",
-        "security": true,
-        "version": "134.0",
-        "previousVersions": ["17.48.32", "17.47.30", "17.46.28"],
-        "downloadLink": "https://play.google.com/store/apps/details?id=com.google.android.youtube",
-        "screenshots": [
-            "https://cdn6.aptoide.com/imgs/c/1/d/c1db1d32ea0227c5ebf30c0e79a02ec5_screen.jpg",
-            "https://cdn6.aptoide.com/imgs/0/1/c/01ce27959fbc14d52d05373be6d3204d_screen.jpg",
-            "https://cdn6.aptoide.com/imgs/9/a/7/9a7a6eadd7ab8500d11c9a3bb238e78c_screen.jpg"
-        ]
-    },
-          {
-  "name": "Firefox",
-  "developer": "Mozilla Foundation",
-  "category": "Navegadores",
-  "rating": 4.5,
-  "icon": "https://img.utdstc.com/icon/f8a/1c9/f8a1c9c8fe396386fb02f632f929884ad2d3e47fc7b9a961d1e72ffce9528989:200",
-  "description": "Firefox es un navegador web gratuito y de código abierto, conocido por su velocidad, seguridad y personalización.",
-  "downloads": "12.1 M",
-  "security": true,
-  "version": "109.0",
-  "previousVersions": ["108.0", "107.0", "106.0"],
-  "downloadLink": "https://play.google.com/store/apps/details?id=org.mozilla.firefox",
-  "screenshots": [
-    "https://upload.wikimedia.org/wikipedia/commons/9/94/Firefox_25.0_Screenshot.png",
-    "https://hacks.mozilla.org/wp-content/uploads/2015/09/screenshot-node.gif"
-  ]
-},
- {
-    "name": "Apple Music",
-    "developer": "Apple Inc.",
-    "category": "Música y audio",
-    "rating": 4.7,
-    "icon": "https://img.utdstc.com/icon/b8f/295/b8f29513a10ee9c47ec6dad899390054e98897bb144640689109e2ef7e6777ae:200",
-    "description": "Apple Music es un servicio de transmisión de música que ofrece acceso a millones de canciones y contenido exclusivo.",
-    "downloads": "513.8 k",
-    "security": true,
-    "version": "4.9.5",
-    "previousVersions": ["5.7.0", "5.6.0", "5.5.0"],
-    "downloadLink": "https://play.google.com/store/apps/details?id=com.apple.android.music",
-    "screenshots": [
-      "https://i.redd.it/d1rwbu8xtzy71.jpg",
-      "https://roon-community-uploads.s3.amazonaws.com/original/3X/1/3/139c830584e541137bff145a71e79146fb3ef0d0.jpeg"
-    ]
-  },
-  {
-    "name": "Google Drive",
-    "developer": "Google LLC",
-    "category": "Productividad",
-    "rating": 4.7,
-    "icon": "https://cdn-icons-png.flaticon.com/512/2913/2913963.png",
-    "description": "Google Drive es un servicio de almacenamiento en la nube que permite almacenar y compartir archivos.",
-    "downloads": "34.4 M",
-    "security": true,
-    "version": "2.25.030.0.all.alldpi",
-    "previousVersions": ["2.22.0.1", "2.21.1.2", "2.20.0.1"],
-    "downloadLink": "https://play.google.com/store/apps/details?id=com.google.android.apps.docs",
-    "screenshots": [
-      "https://img.utdstc.com/screen/1bf/c7e/1bfc7eb9b7ad546fa156fc2779996db476e54edd9c0cc2baf73ec3fc20679b6d:800"
-     
-    ]
-  },
-  {
-    "name": "Canva",
-    "developer": "Canva Pty Ltd",
-    "category": "Diseño",
-    "rating": 4.8,
-    "icon": "https://upload.wikimedia.org/wikipedia/commons/1/1d/Canva_logo.png",
-    "description": "Canva es una herramienta de diseño gráfico fácil de usar para crear imágenes, presentaciones y otros diseños visuales.",
-    "downloads": "500M+",
-    "security": true,
-    "version": "2.186.0",
-    "previousVersions": ["2.185.0", "2.184.0", "2.183.0"],
-    "downloadLink": "https://play.google.com/store/apps/details?id=com.canva.editor",
-    "screenshots": [
-      "https://upload.wikimedia.org/wikipedia/commons/2/2e/Canva_App_Screenshot.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/4/4d/Canva_app_interface.jpg"
-    ]
-  },
-  {
-    "name": "Zoom",
-    "developer": "Zoom Video Communications, Inc.",
-    "category": "Comunicación",
-    "rating": 4.4,
-    "icon": "https://upload.wikimedia.org/wikipedia/commons/a/a7/Zoom_communications_logo.svg",
-    "description": "Zoom es una plataforma de videoconferencias, chats y colaboración en línea.",
-    "downloads": "1B+",
-    "security": true,
-    "version": "5.10.4",
-    "previousVersions": ["5.9.6", "5.8.4", "5.7.4"],
-    "downloadLink": "https://play.google.com/store/apps/details?id=us.zoom.videomeetings",
-    "screenshots": [
-      "https://upload.wikimedia.org/wikipedia/commons/4/45/Zoom_App_Interface.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/d/df/Zoom_Android_Screenshot.jpg"
-    ]
-  },
-  {
-    "name": "Slack",
-    "developer": "Slack Technologies",
-    "category": "Productividad",
-    "rating": 4.5,
-    "icon": "https://upload.wikimedia.org/wikipedia/commons/4/41/Slack_icon_2019.svg",
-    "description": "Slack es una plataforma de mensajería para equipos, que facilita la colaboración en proyectos.",
-    "downloads": "500M+",
-    "security": true,
-    "version": "23.10.0",
-    "previousVersions": ["23.9.0", "23.8.0", "23.7.0"],
-    "downloadLink": "https://play.google.com/store/apps/details?id=com.Slack",
-    "screenshots": [
-      "https://upload.wikimedia.org/wikipedia/commons/7/7c/Slack_Messaging_Screenshot.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/f/f2/Slack_Chat_Interface_Screenshot.jpg"
-    ]
-  },
-  {
-    "name": "Telegram",
-    "developer": "Telegram Messenger LLP",
-    "category": "Comunicación",
-    "rating": 4.5,
-    "icon": "https://upload.wikimedia.org/wikipedia/commons/6/60/Telegram_2019_Logo.svg",
-    "description": "Telegram es una aplicación de mensajería instantánea enfocada en la velocidad y la seguridad.",
-    "downloads": "1B+",
-    "security": true,
-    "version": "9.0.0",
-    "previousVersions": ["8.9.0", "8.8.0", "8.7.0"],
-    "downloadLink": "https://play.google.com/store/apps/details?id=org.telegram.messenger",
-    "screenshots": [
-      "https://upload.wikimedia.org/wikipedia/commons/0/0d/Telegram_Messenger_Interface.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/f/f4/Telegram_App_Screenshot.png"
-    ]
-  },
-  {
-    "name": "Medium",
-    "developer": "A Medium Corporation",
-    "category": "Redes sociales",
-    "rating": 4.5,
-    "icon": "https://upload.wikimedia.org/wikipedia/commons/3/39/Medium_logo_2017.svg",
-    "description": "Medium es una plataforma de publicación donde las personas pueden compartir historias, ideas y opiniones.",
-    "downloads": "10M+",
-    "security": true,
-    "version": "4.20.0",
-    "previousVersions": ["4.19.0", "4.18.0", "4.17.0"],
-    "downloadLink": "https://play.google.com/store/apps/details?id=com.medium.reader",
-    "screenshots": [
-      "https://upload.wikimedia.org/wikipedia/commons/3/3c/Medium_App_Screenshot.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/2/2f/Medium_Publishing_Interface.jpg"
-    ]
-  },
-  {
-    "name": "Adobe Photoshop Express",
-    "developer": "Adobe Inc.",
-    "category": "Fotografía",
-    "rating": 4.7,
-    "icon": "https://upload.wikimedia.org/wikipedia/commons/e/e3/Adobe_Photoshop_Express_logo.svg",
-    "description": "Adobe Photoshop Express es una versión simplificada de la famosa herramienta de edición de imágenes.",
-    "downloads": "500M+",
-    "security": true,
-    "version": "8.2.1",
-    "previousVersions": ["8.1.0", "8.0.0", "7.9.0"],
-    "downloadLink": "https://play.google.com/store/apps/details?id=com.adobe.psmobile",
-    "screenshots": [
-      "https://upload.wikimedia.org/wikipedia/commons/0/05/Adobe_Photoshop_Express_App_Screenshot.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/9/9c/Adobe_Photoshop_Express_Edit_Screenshot.jpg"
-    ]
-  },
-  {
-    "name": "LinkedIn",
-    "developer": "LinkedIn Corporation",
-    "category": "Redes sociales",
-    "rating": 4.6,
-    "icon": "https://upload.wikimedia.org/wikipedia/commons/7/76/LinkedIn_Logo_2019.svg",
-    "description": "LinkedIn es una plataforma para profesionales que facilita la búsqueda de empleo y la conexión con otros profesionales.",
-    "downloads": "1B+",
-    "security": true,
-    "version": "4.1.674",
-    "previousVersions": ["4.0.573", "3.8.924", "3.7.560"],
-    "downloadLink": "https://play.google.com/store/apps/details?id=com.linkedin.android",
-    "screenshots": [
-      "https://upload.wikimedia.org/wikipedia/commons/3/33/LinkedIn_App_Screenshot.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/6/63/LinkedIn_Social_Network_Screenshot.jpg"
-    ]
-  },
-  {
-    "name": "eBay",
-    "developer": "eBay Inc.",
-    "category": "Compras",
-    "rating": 4.6,
-    "icon": "https://upload.wikimedia.org/wikipedia/commons/e/e2/Ebay_logo.svg",
-    "description": "eBay es una plataforma en línea de subastas y compras, que permite a los usuarios comprar y vender productos.",
-    "downloads": "500M+",
-    "security": true,
-    "version": "6.72.0",
-    "previousVersions": ["6.71.0", "6.70.0", "6.69.0"],
-    "downloadLink": "https://play.google.com/store/apps/details?id=com.ebay.mobile",
-    "screenshots": [
-      "https://upload.wikimedia.org/wikipedia/commons/9/92/eBay_App_Interface.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/4/43/eBay_App_Screenshot.jpg"
-    ]
-  },
-           {
-    "name": "Autodesk",
-    "developer": "Autodesk Inc.",
-    "category": "Diseño y Modelado",
-    "rating": 4.6,
-    "icon": "https://upload.wikimedia.org/wikipedia/commons/a/af/Autodesk_Logo_2020.svg",
-    "description": "Autodesk ofrece soluciones de software para diseño, ingeniería, arquitectura, construcción y entretenimiento.",
-    "downloads": "100M+",
-    "security": true,
-    "version": "24.3",
-    "previousVersions": ["24.2", "24.1", "24.0"],
-    "downloadLink": "https://play.google.com/store/apps/details?id=com.autodesk.autocad",
-    "screenshots": [
-      "https://upload.wikimedia.org/wikipedia/commons/e/ec/Autodesk_SketchBook_App_Screenshot.png",
-      "https://upload.wikimedia.org/wikipedia/commons/6/69/Autodesk_App_Interface.jpg"
-    ]
-  },
-  {
-    "name": "VLC",
-    "developer": "VideoLAN",
-    "category": "Reproductores Multimedia",
-    "rating": 4.7,
-    "icon": "https://upload.wikimedia.org/wikipedia/commons/0/06/VLC_Logo_2019.svg",
-    "description": "VLC es un reproductor multimedia que soporta casi todos los formatos de audio y video.",
-    "downloads": "1B+",
-    "security": true,
-    "version": "3.5.0",
-    "previousVersions": ["3.4.7", "3.4.6", "3.4.5"],
-    "downloadLink": "https://play.google.com/store/apps/details?id=org.videolan.vlc",
-    "screenshots": [
-      "https://upload.wikimedia.org/wikipedia/commons/f/f6/VLC_App_Interface.png",
-      "https://upload.wikimedia.org/wikipedia/commons/4/49/VLC_Mobile_Android_Screenshot.jpg"
-    ]
-  },
-  {
-    "name": "Pandora",
-    "developer": "Pandora Media, Inc.",
-    "category": "Música y audio",
-    "rating": 4.5,
-    "icon": "https://upload.wikimedia.org/wikipedia/commons/c/cc/Pandora_Logo_2020.png",
-    "description": "Pandora es una plataforma de streaming de música personalizada que crea estaciones de radio basadas en gustos.",
-    "downloads": "100M+",
-    "security": true,
-    "version": "2201.1",
-    "previousVersions": ["2200.3", "2199.8", "2198.0"],
-    "downloadLink": "https://play.google.com/store/apps/details?id=com.pandora.android",
-    "screenshots": [
-      "https://upload.wikimedia.org/wikipedia/commons/f/f3/Pandora_Android_App_Screenshot.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/c/ca/Pandora_App_Interface.jpg"
-    ]
-  },
-  {
-    "name": "Shazam",
-    "developer": "Apple Inc.",
-    "category": "Música y audio",
-    "rating": 4.8,
-    "icon": "https://upload.wikimedia.org/wikipedia/commons/c/c2/Shazam_Logo.svg",
-    "description": "Shazam es una aplicación que identifica canciones y muestra información sobre ellas.",
-    "downloads": "1B+",
-    "security": true,
-    "version": "12.19.0",
-    "previousVersions": ["12.18.0", "12.17.1", "12.16.3"],
-    "downloadLink": "https://play.google.com/store/apps/details?id=com.shazam.android",
-    "screenshots": [
-      "https://upload.wikimedia.org/wikipedia/commons/e/e0/Shazam_App_Interface.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/9/95/Shazam_App_Screenshot.jpg"
-    ]
-  },
-  {
-    "name": "SoundCloud",
-    "developer": "SoundCloud Ltd.",
-    "category": "Música y audio",
-    "rating": 4.5,
-    "icon": "https://upload.wikimedia.org/wikipedia/commons/4/44/SoundCloud_Logo.svg",
-    "description": "SoundCloud es una plataforma de distribución de música que permite a los usuarios cargar, promocionar y compartir música.",
-    "downloads": "500M+",
-    "security": true,
-    "version": "2023.12.21",
-    "previousVersions": ["2023.12.20", "2023.12.19", "2023.12.18"],
-    "downloadLink": "https://play.google.com/store/apps/details?id=com.soundcloud.android",
-    "screenshots": [
-      "https://upload.wikimedia.org/wikipedia/commons/0/06/SoundCloud_Android_App_Screenshot.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/c/cb/SoundCloud_App_Interface.png"
-    ]
-  },
-  {
-    "name": "Waze",
-    "developer": "Google LLC",
-    "category": "Navegación",
-    "rating": 4.7,
-    "icon": "https://upload.wikimedia.org/wikipedia/commons/3/3b/Waze_logo.svg",
-    "description": "Waze es una aplicación de navegación que proporciona información en tiempo real sobre el tráfico y rutas optimizadas.",
-    "downloads": "500M+",
-    "security": true,
-    "version": "4.79.0",
-    "previousVersions": ["4.78.1", "4.78.0", "4.77.2"],
-    "downloadLink": "https://play.google.com/store/apps/details?id=com.waze",
-    "screenshots": [
-      "https://upload.wikimedia.org/wikipedia/commons/2/29/Waze_App_Android_Screenshot.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/e/e9/Waze_App_Interface.jpg"
-    ]
-  },
-  {
-    "name": "Evernote",
-    "developer": "Evernote Corporation",
-    "category": "Productividad",
-    "rating": 4.4,
-    "icon": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Evernote_Logo_2022.svg",
-    "description": "Evernote es una aplicación para tomar notas, gestionar tareas y organizar información.",
-    "downloads": "100M+",
-    "security": true,
-    "version": "10.17.0",
-    "previousVersions": ["10.16.1", "10.15.2", "10.14.0"],
-    "downloadLink": "https://play.google.com/store/apps/details?id=com.evernote",
-    "screenshots": [
-      "https://upload.wikimedia.org/wikipedia/commons/7/7c/Evernote_Android_Screenshot.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/0/0a/Evernote_App_Screenshot.jpg"
-    ]
-  },
-  {
-    "name": "Trello",
-    "developer": "Atlassian",
-    "category": "Productividad",
-    "rating": 4.5,
-    "icon": "https://upload.wikimedia.org/wikipedia/commons/4/4e/Trello_logo.svg",
-    "description": "Trello es una aplicación para gestión de proyectos que organiza tareas y equipos con tableros.",
-    "downloads": "100M+",
-    "security": true,
-    "version": "2023.12.4",
-    "previousVersions": ["2023.12.3", "2023.12.2", "2023.12.1"],
-    "downloadLink": "https://play.google.com/store/apps/details?id=com.trello",
-    "screenshots": [
-      "https://upload.wikimedia.org/wikipedia/commons/f/ff/Trello_Android_App_Screenshot.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/3/36/Trello_App_Interface.jpg"
-    ]
-  },
-  {
-    "name": "Asana",
-    "developer": "Asana, Inc.",
-    "category": "Productividad",
-    "rating": 4.6,
-    "icon": "https://upload.wikimedia.org/wikipedia/commons/9/91/Asana_Logo_2022.svg",
-    "description": "Asana es una aplicación para la gestión de proyectos y seguimiento de tareas en equipo.",
-    "downloads": "100M+",
-    "security": true,
-    "version": "2023.11.10",
-    "previousVersions": ["2023.11.9", "2023.11.8", "2023.11.7"],
-    "downloadLink": "https://play.google.com/store/apps/details?id=com.asana.app",
-    "screenshots": [
-      "https://upload.wikimedia.org/wikipedia/commons/5/56/Asana_Android_App_Screenshot.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/4/42/Asana_App_Interface.jpg"
-    ]
-  },
-  {
-    "name": "BitTorrent",
-    "developer": "Rainberry, Inc.",
-    "category": "Entretenimiento",
-    "rating": 4.4,
-    "icon": "https://upload.wikimedia.org/wikipedia/commons/4/4c/BitTorrent_logo_2018.svg",
-    "description": "BitTorrent es una aplicación que permite compartir y descargar archivos de manera descentralizada utilizando el protocolo P2P.",
-    "downloads": "100M+",
-    "security": true,
-    "version": "7.6.5",
-    "previousVersions": ["7.6.4", "7.6.3", "7.6.2"],
-    "downloadLink": "https://play.google.com/store/apps/details?id=com.bittorrent.client",
-    "screenshots": [
-      "https://upload.wikimedia.org/wikipedia/commons/e/e0/BitTorrent_Android_App_Screenshot.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/1/14/BitTorrent_App_Interface.jpg"
-    ]
-  },
-  {
-    "name": "Pinterest",
-    "developer": "Pinterest, Inc.",
-    "category": "Redes sociales",
-    "rating": 4.7,
-    "icon": "https://upload.wikimedia.org/wikipedia/commons/4/49/Pinterest_Logo_2017.svg",
-    "description": "Pinterest es una plataforma de descubrimiento visual que te permite encontrar ideas para varios proyectos e intereses.",
-    "downloads": "1B+",
-    "security": true,
-    "version": "9.13.0",
-    "previousVersions": ["9.12.0", "9.11.0", "9.10.0"],
-    "downloadLink": "https://play.google.com/store/apps/details?id=com.pinterest",
-    "screenshots": [
-      "https://upload.wikimedia.org/wikipedia/commons/7/7c/Pinterest_App_Screenshot.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/1/1e/Pinterest_Main_Screen.jpg"
-    ]
-  },
-  {
-    "name": "Discord",
-    "developer": "Discord Inc.",
-    "category": "Comunicación",
-    "rating": 4.6,
-    "icon": "https://upload.wikimedia.org/wikipedia/commons/6/60/Discord_logo_2021.svg",
-    "description": "Discord es una aplicación de chat de voz y texto diseñada para comunidades de jugadores, pero utilizada por una amplia variedad de grupos.",
-    "downloads": "500M+",
-    "security": true,
-    "version": "135.10",
-    "previousVersions": ["134.13", "133.9", "132.5"],
-    "downloadLink": "https://play.google.com/store/apps/details?id=com.discord",
-    "screenshots": [
-      "https://upload.wikimedia.org/wikipedia/commons/8/83/Discord_Screenshot.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/d/d4/Discord_Voice_Chat.jpg"
-    ]
-  },
-  {
-    "name": "Reddit",
-    "developer": "Reddit Inc.",
-    "category": "Redes sociales",
-    "rating": 4.4,
-    "icon": "https://upload.wikimedia.org/wikipedia/commons/6/64/Reddit_Logo_2023.svg",
-    "description": "Reddit es una plataforma social de agregación de noticias donde los usuarios pueden compartir contenido y participar en discusiones.",
-    "downloads": "100M+",
-    "security": true,
-    "version": "2023.45.0",
-    "previousVersions": ["2023.43.0", "2023.40.0", "2023.35.0"],
-    "downloadLink": "https://play.google.com/store/apps/details?id=com.reddit.frontpage",
-    "screenshots": [
-      "https://upload.wikimedia.org/wikipedia/commons/8/8c/Reddit_App_Screenshot.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/c/c7/Reddit_Desktop_Screenshot.jpg"
-    ]
-  },
-  {
-    "name": "Twitch",
-    "developer": "Twitch Interactive, Inc.",
-    "category": "Entretenimiento",
-    "rating": 4.5,
-    "icon": "https://upload.wikimedia.org/wikipedia/commons/4/4b/Twitch_Logo_2019.svg",
-    "description": "Twitch es una plataforma de transmisión en vivo, principalmente utilizada para juegos, pero también para deportes, música y otras categorías.",
-    "downloads": "100M+",
-    "security": true,
-    "version": "15.10.0",
-    "previousVersions": ["14.9.0", "14.8.0", "14.7.0"],
-    "downloadLink": "https://play.google.com/store/apps/details?id=tv.twitch.android.app",
-    "screenshots": [
-      "https://upload.wikimedia.org/wikipedia/commons/e/e0/Twitch_App_Screenshot.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/c/c1/Twitch_Live_Streaming_Screenshot.jpg"
-    ]
-  },
-  {
-    "name": "Dropbox",
-    "developer": "Dropbox, Inc.",
-    "category": "Productividad",
-    "rating": 4.6,
-    "icon": "https://upload.wikimedia.org/wikipedia/commons/2/29/Dropbox_logo_2017.svg",
-    "description": "Dropbox es un servicio de almacenamiento en la nube que permite a los usuarios guardar y compartir archivos y carpetas.",
-    "downloads": "1B+",
-    "security": true,
-    "version": "303.2.2",
-    "previousVersions": ["302.3.1", "301.6.0", "300.9.0"],
-    "downloadLink": "https://play.google.com/store/apps/details?id=com.dropbox.android",
-    "screenshots": [
-      "https://upload.wikimedia.org/wikipedia/commons/9/9c/Dropbox_App_Screenshot.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/d/d0/Dropbox_Cloud_Screenshot.jpg"
-    ]
-  },
-  {
-    "name": "Google Maps",
-    "developer": "Google LLC",
-    "category": "Mapas y navegación",
-    "rating": 4.7,
-    "icon": "https://upload.wikimedia.org/wikipedia/commons/0/0b/Google_Maps_icon_%282013-2019%29.svg",
-    "description": "Google Maps es una herramienta de navegación que ofrece mapas detallados, direcciones, tráfico en tiempo real y más.",
-    "downloads": "10B+",
-    "security": true,
-    "version": "11.5.1",
-    "previousVersions": ["11.4.1", "11.3.0", "11.2.5"],
-    "downloadLink": "https://play.google.com/store/apps/details?id=com.google.android.apps.maps",
-    "screenshots": [
-      "https://upload.wikimedia.org/wikipedia/commons/c/c4/Google_Maps_Screenshot.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/4/47/Google_Maps_Navigation.jpg"
-    ]
-  },
-  {
-    "name": "Amazon",
-    "developer": "Amazon Mobile LLC",
-    "category": "Compras",
-    "rating": 4.3,
-    "icon": "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg",
-    "description": "Amazon es una plataforma de comercio electrónico que permite comprar, vender y hacer compras en línea.",
-    "downloads": "5B+",
-    "security": true,
-    "version": "22.23.0",
-    "previousVersions": ["22.22.1", "22.21.3", "22.20.5"],
-    "downloadLink": "https://play.google.com/store/apps/details?id=com.amazon.mShop.android.shopping",
-    "screenshots": [
-      "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_App_Screenshot.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/4/47/Amazon_Shop_Screenshot.jpg"
-    ]
-  },
-  {
-    "name": "Skype",
-    "developer": "Microsoft Corporation",
-    "category": "Comunicación",
-    "rating": 4.5,
-    "icon": "https://upload.wikimedia.org/wikipedia/commons/5/51/Skype_logo_2019.svg",
-    "description": "Skype es una plataforma de comunicación que permite realizar llamadas de voz y video, además de enviar mensajes.",
-    "downloads": "1B+",
-    "security": true,
-    "version": "8.89.0",
-    "previousVersions": ["8.88.0", "8.87.0", "8.86.0"],
-    "downloadLink": "https://play.google.com/store/apps/details?id=com.skype.raider",
-    "screenshots": [
-      "https://upload.wikimedia.org/wikipedia/commons/4/4d/Skype_App_Screenshot.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/d/d9/Skype_Video_Call_Screenshot.jpg"
-    ]
-  },
-  {
-    "name": "Microsoft Teams",
-    "developer": "Microsoft Corporation",
-    "category": "Productividad",
-    "rating": 4.5,
-    "icon": "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_Teams_logo_2021.svg",
-    "description": "Microsoft Teams es una plataforma de colaboración que integra chat, video, almacenamiento de archivos y más.",
-    "downloads": "500M+",
-    "security": true,
-    "version": "1416/1.0.0.2023110802",
-    "previousVersions": ["1415/1.0.0.2023110203", "1414/1.0.0.2023103102"],
-    "downloadLink": "https://play.google.com/store/apps/details?id=com.microsoft.teams",
-    "screenshots": [
-      "https://upload.wikimedia.org/wikipedia/commons/c/cb/Microsoft_Teams_App_Screenshot.jpg",
-      "https://upload.wikimedia.org/wikipedia/commons/f/f7/Microsoft_Teams_Video_Call.jpg"
-    ]
-  },
-
-            {
-                name: "WhatsApp",
-                developer: "Meta Platforms",
-                category: "Mensajería",
-                rating: 4.7,
-                icon: "https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg",
-                description: "WhatsApp es una aplicación de mensajería instantánea gratuita...",
-                downloads: "10B+",
-                security: true,
-                version: "2.23.3.77",
-                previousVersions: ["2.23.3.76", "2.23.2.71", "2.22.20.75"],
-                downloadLink: "https://play.google.com/store/apps/details?id=com.whatsapp",
-                screenshots: [
-                    "/api/placeholder/200/400",
-                    "/api/placeholder/200/400",
-                    "/api/placeholder/200/400",
-                    "/api/placeholder/200/400"
-                ]
-            }
+    }
         ];
 
-
-        // Mantenemos todas las funciones originales
         function parseDownloads(downloads) {
             if (downloads.includes('B+')) {
                 return parseFloat(downloads.replace('B+', '')) * 1000000000;
             }
             return parseInt(downloads.replace('M+', '')) * 1000000;
+        }
+
+        // Función para obtener el enlace correcto según el dispositivo
+        function getStoreLink(app) {
+            const device = detectDevice();
+            if (!app.isAvailable) {
+                return null;
+            }
+            if (device === 'ios' && app.platforms.ios) {
+                return app.platforms.ios;
+            } else if (device === 'android' && app.platforms.android) {
+                return app.platforms.android;
+            }
+            return app.platforms.android || app.platforms.ios;
         }
 
         const sortedApps = [...apps].sort((a, b) => parseDownloads(b.downloads) - parseDownloads(a.downloads));
@@ -1377,6 +826,10 @@
         function displayApps(filteredApps) {
             appsContainer.innerHTML = '';
             filteredApps.forEach(app => {
+                const storeLink = getStoreLink(app);
+                const downloadText = !app.isAvailable ? 'No disponible' : 
+                    `Descargar en ${detectDevice() === 'ios' ? 'App Store' : 'Play Store'}`;
+                
                 const appCard = document.createElement('div');
                 appCard.classList.add('app-card');
                 appCard.innerHTML = `
@@ -1391,7 +844,7 @@
                                 <span>${app.rating}</span>
                             </div>
                         </div>
-                        <div class="download-btn">Descargar</div>
+                        <div class="download-btn">${downloadText}</div>
                     </div>
                 `;
                 appCard.addEventListener('click', () => openAppModal(app));
@@ -1400,14 +853,21 @@
         }
 
         function openAppModal(app) {
+            const storeLink = getStoreLink(app);
+            const availabilityWarning = !app.isAvailable ? 
+                `<div class="availability-warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Esta aplicación no está disponible actualmente en su país. Por favor, inténtelo más tarde.
+                </div>` : '';
+
             modalContent.innerHTML = `
+                ${availabilityWarning}
                 <div class="app-banner">
                     <img src="${app.icon}" alt="${app.name}">
                 </div>
                 <h3>${app.name}</h3>
                 <p>${app.description}</p>
 
-                <!-- Nueva sección de screenshots -->
                 <div class="screenshots-section">
                     <div class="screenshots-container">
                         <button class="screenshot-nav prev">
@@ -1443,16 +903,26 @@
                         <div class="info-value">${app.downloads}</div>
                     </div>
                 </div>
+
                 <div class="action-buttons">
-                    <a class="action-btn primary-btn" href="${app.downloadLink}" target="_blank">Descargar APK</a>
+                    ${storeLink ? 
+                        `<a class="action-btn primary-btn" href="${storeLink}" target="_blank">
+                            Descargar ${detectDevice() === 'ios' ? 'en App Store' : 'en Play Store'}
+                        </a>` :
+                        `<button class="action-btn primary-btn" disabled>
+                            No disponible
+                        </button>`
+                    }
                     <button class="action-btn secondary-btn" onclick="togglePreviousVersions('${app.name}')">Ver más</button>
                 </div>
+
                 <div class="security-info">
                     <div class="virustotal-badge">
                         <i class="fas fa-shield-alt"></i> Verificado por VirusTotal
                     </div>
                     <div class="security-details">Sin problemas de seguridad detectados.</div>
                 </div>
+
                 <div class="previous-versions" id="${app.name}-versions" style="display:none;">
                     <h4>Versiones anteriores:</h4>
                     <ul>
@@ -1502,7 +972,6 @@
             appModal.classList.add('active');
         }
 
-        // Mantenemos las funciones originales
         function closeModal() {
             appModal.classList.remove('active');
         }
@@ -1526,9 +995,5 @@
         // Inicializar la visualización de aplicaciones
         displayApps(sortedApps);
     </script>
-</body>
-</html>
-<!-- partial -->
-  
 </body>
 </html>
