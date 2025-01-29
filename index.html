@@ -35,12 +35,25 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             overflow: hidden;
             padding: 20px;
+            text-align: center;
+        }
+
+        /* Selector de idioma */
+        .language-selector {
+            margin-bottom: 10px;
+            text-align: right;
+        }
+
+        select {
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 14px;
         }
 
         /* Slide */
         .slide {
             display: none;
-            text-align: center;
         }
 
         .slide h3 {
@@ -81,16 +94,6 @@
             color: #ccc;
         }
 
-        /* Estilo para la verificación */
-        .verified {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-            font-weight: bold;
-            color: #007aff;
-        }
-
         /* Ocultar aviso después de completarlo */
         .hidden {
             display: none !important;
@@ -102,6 +105,15 @@
     <!-- Contenedor del aviso -->
     <div class="aviso-container" id="aviso">
         <div class="slider">
+            <!-- Selector de idioma -->
+            <div class="language-selector">
+                <label for="language">Idioma:</label>
+                <select id="language">
+                    <option value="es" selected>Español</option>
+                    <option value="zh">中文 (Chino)</option>
+                </select>
+            </div>
+
             <!-- Slide 1: Aviso sobre enlaces -->
             <div class="slide" id="slide1">
                 <i class="fas fa-info-circle"></i>
@@ -146,17 +158,14 @@
 
         // Muestra la primera página y oculta las demás
         function updateSlide() {
-            // Ocultar todos los slides
             for (let i = 1; i <= 4; i++) {
                 document.getElementById("slide" + i).style.display = "none";
             }
 
-            // Mostrar solo el slide actual
             document.getElementById("slide" + currentSlide).style.display = "block";
 
-            // Habilitar/deshabilitar botones
             document.getElementById("prevBtn").disabled = currentSlide === 1;
-            document.getElementById("nextBtn").innerText = currentSlide === 4 ? "Comenzar" : "Siguiente";
+            document.getElementById("nextBtn").innerText = currentSlide === 4 ? "Finalizar" : "Siguiente";
         }
 
         function nextSlide() {
@@ -164,8 +173,9 @@
                 currentSlide++;
                 updateSlide();
             } else {
-                document.getElementById("aviso").classList.add("hidden");
-                localStorage.setItem("avisoMostrado", "true");
+                let selectedLanguage = document.getElementById("language").value;
+                let redirectUrl = selectedLanguage === "zh" ? "https://cnglamstore.netlify.app/" : "https://glamstore.netlify.app/";
+                window.location.href = redirectUrl;
             }
         }
 
@@ -176,7 +186,6 @@
             }
         }
 
-        // Actualizar nombre y foto de perfil
         document.getElementById("file-input").addEventListener("change", function(event) {
             const file = event.target.files[0];
             if (file) {
@@ -192,17 +201,12 @@
             document.getElementById("user-display").innerText = this.value || "Usuario";
         });
 
-        // Si el aviso ya se mostró antes, lo ocultamos
-        if (localStorage.getItem("avisoMostrado")) {
-            document.getElementById("aviso").classList.add("hidden");
-        }
-
-        // Inicializar el primer slide
         updateSlide();
     </script>
 
 </body>
 </html>
+
 
 <!DOCTYPE html>
 <html lang="en" >
