@@ -10,14 +10,14 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            background-color: white; /* Fondo blanco */
+            color: black; /* Texto negro */
         }
 
-        /* Estilos del bloqueador de página con fondo blanco */
+        /* Contenedor del bloqueador */
         #blocker {
             width: 100%;
             height: 100vh;  /* Ocupa toda la altura de la ventana */
-            background-color: white;  /* Fondo blanco */
-            color: black;  /* Texto en color negro */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -40,7 +40,7 @@
 </head>
 <body>
 
-    <!-- Bloqueador de página, inicialmente oculto -->
+    <!-- Bloqueador de página -->
     <div id="blocker">
         <h1>Error 503 Backend is unhealthy</h1>
         <p>Backend is unhealthy</p>
@@ -49,34 +49,48 @@
     </div>
 
     <script>
-        // Configuración para bloquear o desbloquear la página
-        let isBlocked = false;  // Cambia a `false` para desbloquear la página
+        // Variable para bloquear o desbloquear la página
+        let isBlocked = true;  // Cambia a `false` para desbloquear la página
 
         if (isBlocked) {
-            // Si está bloqueado, muestra el bloqueador
             document.getElementById('blocker').style.display = 'flex';
 
             // Función para generar un código de error largo y aleatorio
             function generateErrorCode() {
-                // Genera un número aleatorio largo de 12 dígitos
                 let code = '';
-                for (let i = 0; i < 12; i++) {
-                    code += Math.floor(Math.random() * 10);  // Genera un dígito aleatorio del 0 al 9
+                for (let i = 0; i < 16; i++) {  // Ahora es más largo (16 dígitos)
+                    code += Math.floor(Math.random() * 10);  // Genera un número aleatorio (0-9)
                 }
                 return code;
             }
 
-            // Genera y muestra el código de error largo
+            // Generar y mostrar el código de error aleatorio
             const errorDetails = `cache-dfw-ktki8620096-DFW ${generateErrorCode()} ${generateErrorCode()}`;
             document.getElementById('errorDetails').textContent = errorDetails;
         } else {
-            // Si no está bloqueado, la página sigue normal
             document.getElementById('blocker').style.display = 'none';
         }
+
+        // COMPROBAR ACTUALIZACIONES DESDE GITHUB AUTOMÁTICAMENTE
+        function checkForUpdates() {
+            fetch('/version.txt?nocache=' + new Date().getTime())
+                .then(response => response.text())
+                .then(version => {
+                    if (localStorage.getItem('siteVersion') !== version) {
+                        localStorage.setItem('siteVersion', version);
+                        location.reload(true); // Recarga la página si hay cambios en GitHub
+                    }
+                })
+                .catch(error => console.error('No se pudo verificar la actualización:', error));
+        }
+
+        // Verificar actualizaciones cada 10 segundos
+        setInterval(checkForUpdates, 10000);
     </script>
 
 </body>
 </html>
+
 
 
 <!DOCTYPE html>
