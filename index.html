@@ -3,6 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bloqueo de Página</title>
+    <style>
+        /* Estilos generales de la página */
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        /* Estilos del bloqueador que cubre toda la pantalla */
+        #blocker {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);  /* Fondo oscuro semi-transparente */
+            color: white;
+            text-align: center;
+            display: none;  /* Inicialmente oculto */
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 9999;
+        }
+
+        #blocker h1 {
+            font-size: 2em;
+            margin: 20px 0;
+        }
+
+        #blocker p {
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Bloqueador de página, inicialmente oculto -->
+    <div id="blocker">
+        <h1>Error 503 Backend is unhealthy</h1>
+        <p>Backend is unhealthy</p>
+        <p>Error <span id="errorCode">54113</span></p>
+        <p>Details: <span id="errorDetails"></span></p>
+    </div>
+
+    <script>
+        // Configuración para bloquear o desbloquear la página
+        let isBlocked = true;  // Cambia a `false` para desbloquear la página
+
+        if (isBlocked) {
+            // Si está bloqueado, muestra el bloqueador
+            document.getElementById('blocker').style.display = 'flex';
+
+            // Función para generar un código de error largo y aleatorio
+            function generateErrorCode() {
+                // Genera un número aleatorio largo de 12 dígitos
+                let code = '';
+                for (let i = 0; i < 12; i++) {
+                    code += Math.floor(Math.random() * 10);  // Genera un dígito aleatorio del 0 al 9
+                }
+                return code;
+            }
+
+            // Genera y muestra el código de error largo
+            const errorDetails = `cache-dfw-ktki8620096-DFW ${generateErrorCode()} ${generateErrorCode()}`;
+            document.getElementById('errorDetails').textContent = errorDetails;
+        } else {
+            // Si no está bloqueado, la página sigue normal
+            document.getElementById('blocker').style.display = 'none';
+        }
+    </script>
+
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aviso de Descarga</title>
     <script src="https://kit.fontawesome.com/your-font-awesome-kit.js" crossorigin="anonymous"></script>
     <style>
