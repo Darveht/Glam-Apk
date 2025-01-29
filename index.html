@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -13,7 +12,6 @@
             background-color: #f2f2f7;
         }
 
-        /* Contenedor del aviso */
         .aviso-container {
             position: fixed;
             top: 0;
@@ -27,7 +25,6 @@
             z-index: 1000;
         }
 
-        /* Ventana flotante */
         .slider {
             width: 90%;
             max-width: 380px;
@@ -39,7 +36,6 @@
             text-align: center;
         }
 
-        /* Selector de idioma */
         .language-selector {
             margin-bottom: 10px;
             text-align: right;
@@ -52,7 +48,6 @@
             font-size: 14px;
         }
 
-        /* Slide */
         .slide {
             display: none;
         }
@@ -95,7 +90,6 @@
             color: #ccc;
         }
 
-        /* Ocultar aviso después de completarlo */
         .hidden {
             display: none !important;
         }
@@ -103,14 +97,11 @@
 </head>
 <body>
 
-    <!-- Contenedor del aviso -->
     <div class="aviso-container" id="aviso">
         <div class="slider">
-            <!-- Selector de idioma -->
             <div class="language-selector">
                 <label for="language">Idioma:</label>
                 <select id="language">
-                    <option value="es" selected>Español</option>
                     <option value="en">English</option>
                     <option value="ja">日本語 (Japonés)</option>
                     <option value="pt">Português</option>
@@ -118,21 +109,18 @@
                 </select>
             </div>
 
-            <!-- Slide 1: Aviso sobre enlaces -->
             <div class="slide" id="slide1">
                 <i class="fas fa-info-circle"></i>
                 <h3>Descarga segura</h3>
                 <p>Todos los enlaces dirigen a Google Play y App Store. No alojamos archivos APK ni versiones modificadas.</p>
             </div>
 
-            <!-- Slide 2: Aviso sobre regiones -->
             <div class="slide" id="slide2">
                 <i class="fas fa-globe"></i>
                 <h3>Disponibilidad de apps</h3>
                 <p>Algunas apps pueden no estar disponibles en tu país. Las aplicaciones cambian según la región.</p>
             </div>
 
-            <!-- Slide 3: Registro de usuario -->
             <div class="slide" id="slide3">
                 <i class="fas fa-user"></i>
                 <h3>Tu perfil</h3>
@@ -142,14 +130,12 @@
                 <img id="profile-pic" src="https://via.placeholder.com/80" alt="Foto de perfil" style="width: 80px; height: 80px; border-radius: 50%; margin-top: 10px;">
             </div>
 
-            <!-- Slide 4: Verificación -->
             <div class="slide" id="slide4">
                 <i class="fas fa-check-circle"></i>
                 <h3>Verificación completada</h3>
                 <p class="verified"><span id="user-display">Usuario</span> <i class="fas fa-badge-check"></i></p>
             </div>
 
-            <!-- Controles -->
             <div class="controls">
                 <button class="btn" id="prevBtn" onclick="prevSlide()" disabled>Anterior</button>
                 <button class="btn" id="nextBtn" onclick="nextSlide()">Siguiente</button>
@@ -160,7 +146,6 @@
     <script>
         let currentSlide = 1;
 
-        // Muestra la primera página y oculta las demás
         function updateSlide() {
             for (let i = 1; i <= 4; i++) {
                 document.getElementById("slide" + i).style.display = "none";
@@ -180,22 +165,18 @@
                 let selectedLanguage = document.getElementById("language").value;
                 let redirectUrl = "";
 
-                // Enlaces para redirigir según el idioma
                 switch (selectedLanguage) {
-                    case "es":
-                        redirectUrl = "https://www.example.com/es";
-                        break;
                     case "en":
-                        redirectUrl = "https://www.example.com/en";
+                        redirectUrl = "https://www.example.com/en"; // Reemplazar con el enlace correcto
                         break;
                     case "ja":
-                        redirectUrl = "https://www.example.com/ja";
+                        redirectUrl = "https://www.example.com/ja"; // Reemplazar con el enlace correcto
                         break;
                     case "pt":
-                        redirectUrl = "https://www.example.com/pt";
+                        redirectUrl = "https://www.example.com/pt"; // Reemplazar con el enlace correcto
                         break;
                     case "zh":
-                        redirectUrl = "https://www.example.com/zh";
+                        redirectUrl = "https://cnglamstore.netlify.app/"; // Enlace confirmado
                         break;
                 }
 
