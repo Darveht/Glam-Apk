@@ -206,18 +206,9 @@
             </div>
 
             <div class="slide" id="slide3">
-                <i class="fas fa-user"></i>
-                <h3>Tu perfil</h3>
-                <input type="text" id="username" placeholder="Tu nombre" style="width: 80%; padding: 8px; border-radius: 8px; border: 1px solid #ccc; text-align: center;">
-                <input type="file" id="file-input" accept="image/*" style="margin-top: 10px;">
-                <br>
-                <img id="profile-pic" src="https://via.placeholder.com/80" alt="Foto de perfil" style="width: 80px; height: 80px; border-radius: 50%; margin-top: 10px;">
-            </div>
-
-            <div class="slide" id="slide4">
                 <i class="fas fa-check-circle"></i>
                 <h3>Verificación completada</h3>
-                <p class="verified"><span id="user-display">Usuario</span> <i class="fas fa-badge-check"></i></p>
+                <p>Ahora puedes continuar con la descarga.</p>
             </div>
 
             <div class="controls">
@@ -231,41 +222,40 @@
         let currentSlide = 1;
 
         function updateSlide() {
-            for (let i = 1; i <= 4; i++) {
+            for (let i = 1; i <= 3; i++) {
                 document.getElementById("slide" + i).style.display = "none";
             }
 
             document.getElementById("slide" + currentSlide).style.display = "block";
 
             document.getElementById("prevBtn").disabled = currentSlide === 1;
-            document.getElementById("nextBtn").innerText = currentSlide === 4 ? "Finalizar" : "Siguiente";
+            document.getElementById("nextBtn").innerText = currentSlide === 3 ? "Finalizar" : "Siguiente";
         }
 
         function nextSlide() {
-            if (currentSlide < 4) {
+            if (currentSlide < 3) {
                 currentSlide++;
                 updateSlide();
             } else {
                 let selectedLanguage = document.getElementById("language").value;
 
                 if (selectedLanguage === "es") {
-                    // Si es español, solo cierra el modal sin redireccionar
                     document.getElementById("aviso").style.display = "none";
                 } else {
                     let redirectUrl = "";
 
                     switch (selectedLanguage) {
                         case "en":
-                            redirectUrl = "https://www.example.com/en"; // Reemplazar con el enlace correcto
+                            redirectUrl = "https://www.example.com/en";
                             break;
                         case "ja":
-                            redirectUrl = "https://www.example.com/ja"; // Reemplazar con el enlace correcto
+                            redirectUrl = "https://www.example.com/ja";
                             break;
                         case "pt":
-                            redirectUrl = "https://www.example.com/pt"; // Reemplazar con el enlace correcto
+                            redirectUrl = "https://www.example.com/pt";
                             break;
                         case "zh":
-                            redirectUrl = "https://cnglamstore.netlify.app/"; // Enlace confirmado
+                            redirectUrl = "https://cnglamstore.netlify.app/";
                             break;
                     }
 
@@ -281,26 +271,12 @@
             }
         }
 
-        document.getElementById("file-input").addEventListener("change", function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById("profile-pic").src = e.target.result;
-                }
-                reader.readAsDataURL(file);
-            }
-        });
-
-        document.getElementById("username").addEventListener("input", function() {
-            document.getElementById("user-display").innerText = this.value || "Usuario";
-        });
-
         updateSlide();
     </script>
 
 </body>
 </html>
+
 
 
 
