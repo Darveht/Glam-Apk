@@ -305,16 +305,6 @@
 
 
 <!DOCTYPE html>
-<html lang="en" >
-<head>
-  <meta charset="UTF-8">
-  <title>Untitled</title>
-  
-
-</head>
-<body>
-<!-- partial:index.partial.html -->
-<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -365,7 +355,70 @@
             color: #666;
         }
 
+        .featured-apps {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        .featured-banner {
+            position: relative;
+            background: linear-gradient(45deg, #1a73e8, #4285f4);
+            border-radius: 15px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            transition: transform 0.2s;
+        }
+
+        .featured-banner:hover {
+            transform: scale(1.02);
+        }
+
+        .featured-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('/api/placeholder/800/200') center/cover;
+            opacity: 0.2;
+        }
+
+        .featured-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            color: white;
+        }
+
+        .featured-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            margin-right: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .featured-info h2 {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .featured-info p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
         .apps-container {
+            display: none;
             max-width: 800px;
             margin: 20px auto;
             padding: 0 15px;
@@ -412,6 +465,12 @@
             font-size: 14px;
         }
 
+        .developer-link {
+            color: #0066ff;
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
         .verified-badge {
             color: #1da1f2;
             font-size: 14px;
@@ -419,6 +478,12 @@
         }
 
         .rating {
+            color: #666;
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        .app-size {
             color: #666;
             font-size: 14px;
             margin-top: 4px;
@@ -465,6 +530,42 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
+        .modal-banner {
+            position: relative;
+            height: 200px;
+            margin: -20px -20px 20px -20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .modal-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('/api/placeholder/800/200') center/cover;
+            opacity: 0.2;
+        }
+
+        .modal-banner-content {
+            position: relative;
+            z-index: 1;
+            color: white;
+            text-align: center;
+        }
+
+        .modal-banner-icon {
+            width: 100px;
+            height: 100px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
         .back-button {
             background: none;
             border: none;
@@ -479,15 +580,35 @@
             margin: 0 auto;
         }
 
-        .app-banner {
-            text-align: center;
-            margin-bottom: 20px;
+        /* Estilos existentes del modal... */
+        .screenshots-container {
+            position: relative;
+            margin: 20px 0;
+            padding: 20px 0;
+            background: #f8f8f8;
+            border-radius: 12px;
         }
 
-        .app-banner img {
-            width: 120px;
-            height: 120px;
-            border-radius: 24px;
+        .screenshots-wrapper {
+            position: relative;
+            overflow: hidden;
+            margin: 0 40px;
+        }
+
+        .screenshots {
+            display: flex;
+            transition: transform 0.3s ease-in-out;
+            gap: 15px;
+            padding: 10px 0;
+        }
+
+        .screenshot {
+            flex: 0 0 auto;
+            width: 200px;
+            height: 400px;
+            border-radius: 12px;
+            object-fit: cover;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
         .info-grid {
@@ -502,11 +623,6 @@
             padding: 15px;
             background-color: #f8f8f8;
             border-radius: 12px;
-        }
-
-        .info-label {
-            color: #666;
-            margin-bottom: 5px;
         }
 
         .action-buttons {
@@ -543,12 +659,6 @@
             margin-top: 20px;
         }
 
-        .virustotal-badge {
-            color: #00c853;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
         .previous-versions {
             margin-top: 20px;
             padding: 15px;
@@ -556,43 +666,36 @@
             border-radius: 12px;
         }
 
-        .previous-versions ul {
-            list-style: none;
-            margin-top: 10px;
+        .developer-apps-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            display: none;
         }
 
-        .previous-versions li {
-            padding: 5px 0;
-        }
-
-        .screenshots-container {
+        .developer-apps-content {
             position: relative;
-            margin: 20px 0;
-            padding: 20px 0;
-            background: #f8f8f8;
+            background: white;
+            margin: 50px auto;
+            padding: 20px;
+            max-width: 600px;
             border-radius: 12px;
+            max-height: 80vh;
+            overflow-y: auto;
         }
 
-        .screenshots-wrapper {
-            position: relative;
-            overflow: hidden;
-            margin: 0 40px;
-        }
-
-        .screenshots {
-            display: flex;
-            transition: transform 0.3s ease-in-out;
-            gap: 15px;
-            padding: 10px 0;
-        }
-
-        .screenshot {
-            flex: 0 0 auto;
-            width: 200px;
-            height: 400px;
-            border-radius: 12px;
-            object-fit: cover;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        .close-developer-modal {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
         }
 
         .carousel-button {
@@ -612,18 +715,6 @@
             justify-content: center;
         }
 
-        .carousel-button:hover {
-            background: #f0f0f0;
-        }
-
-        .carousel-button.prev {
-            left: 10px;
-        }
-
-        .carousel-button.next {
-            right: 10px;
-        }
-
         .carousel-dots {
             display: flex;
             justify-content: center;
@@ -631,7 +722,7 @@
             margin-top: 15px;
         }
 
-        .dot {
+        .carousel-dot {
             width: 8px;
             height: 8px;
             border-radius: 50%;
@@ -640,7 +731,7 @@
             transition: background-color 0.3s ease;
         }
 
-        .dot.active {
+        .carousel-dot.active {
             background: #0066ff;
         }
 
@@ -653,74 +744,6 @@
             border: 1px solid #ffeeba;
             text-align: center;
         }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .screenshot.active {
-            animation: slideIn 0.3s ease-out;
-        }
-
-        .screenshots-section {
-            margin: 20px 0;
-            padding: 20px;
-            background: #f8f8f8;
-            border-radius: 12px;
-        }
-
-        .screenshot-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 40px;
-            height: 40px;
-            background: white;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2;
-        }
-
-        .screenshot-nav.prev {
-            left: 10px;
-        }
-
-        .screenshot-nav.next {
-            right: 10px;
-        }
-
-        .screenshot-dots {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 15px;
-        }
-
-        .screenshot-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #ccc;
-            cursor: pointer;
-            transition: 0.3s ease;
-        }
-
-        .screenshot-dot.active {
-            background: #0066ff;
-            transform: scale(1.2);
-        }
     </style>
 </head>
 <body>
@@ -729,6 +752,10 @@
             <i class="fas fa-search search-icon"></i>
             <input type="text" class="search-input" placeholder="Buscar aplicaciones..." id="searchInput">
         </div>
+    </div>
+
+    <div class="featured-apps" id="featuredApps">
+        <!-- Los banners destacados se generarán aquí -->
     </div>
 
     <div class="apps-container" id="appsContainer">
@@ -746,6 +773,16 @@
         <div class="modal-content" id="modalContent"></div>
     </div>
 
+    <div class="developer-apps-modal" id="developerModal">
+        <div class="developer-apps-content">
+            <button class="close-developer-modal" id="closeDeveloperModal">
+                <i class="fas fa-times"></i>
+            </button>
+            <h3>Aplicaciones del desarrollador</h3>
+            <div id="developerApps"></div>
+        </div>
+    </div>
+
     <script>
         // Función para detectar el dispositivo
         function detectDevice() {
@@ -758,121 +795,80 @@
             return 'desktop';
         }
 
-        // Array de apps actualizado con información de plataformas y disponibilidad
+        // Array de apps con información de banners y gradientes
         const apps = [
             {
-        "name": "Instagram",
-        "developer": "Meta",
-        "category": "Redes sociales",
-        "rating": 4.3,
-        "icon": "https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png",
-        "description": "Instagram es una red social centrada en la publicación de fotos y videos.",
-        "downloads": "1.5 B",
-        "security": true,
-        "version": "292.0.0.0.114",
-        "isAvailable": true,
-        "platforms": {
-            "android": "https://play.google.com/store/apps/details?id=com.instagram.android",
-            "ios": "https://apps.apple.com/us/app/instagram/id389801252"
-        },
-        "previousVersions": ["291.0.0.0.72", "290.0.0.0.61", "289.0.0.0.41"],
-        "screenshots": [
-            "https://cdn6.aptoide.com/imgs/9/5/8/95814e00d0000e78cd0d99c1c25eafac_screen.jpg",
-            "https://cdn6.aptoide.com/imgs/4/8/1/481dcb2c2da81d7c948fe19844dcbab4_screen.jpg",
-            "https://cdn6.aptoide.com/imgs/c/6/a/c6aaf6bff8b199ac72d6638efbe8e7ba_screen.jpg"
-        ]
-    },
-    {
-        "name": "WhatsApp",
-        "developer": "Meta",
-        "category": "Mensajería",
-        "rating": 4.5,
-        "icon": "https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg",
-        "description": "WhatsApp es una aplicación de mensajería que permite enviar textos, audios, fotos y videos.",
-        "downloads": "5.0 B",
-        "security": true,
-        "version": "2.23.10.72",
-        "isAvailable": true,
-        "platforms": {
-            "android": "https://play.google.com/store/apps/details?id=com.whatsapp",
-            "ios": "https://apps.apple.com/us/app/whatsapp-messenger/id310633997"
-        },
-        "previousVersions": ["2.23.10.65", "2.23.9.76", "2.23.9.67"],
-        "screenshots": [
-            "https://cdn6.aptoide.com/imgs/2/a/7/2a7c8e3b254c65f51c021d1a826c5c51_screen.jpg",
-            "https://cdn6.aptoide.com/imgs/8/9/c/89c63bb9aee489c1a1f8c37cdcb8fa47_screen.jpg",
-            "https://cdn6.aptoide.com/imgs/0/a/0/0a0626c2ff69c41ea1c6f85e76a8d740_screen.jpg"
-        ]
-    },
-    {
-        "name": "Spotify",
-        "developer": "Spotify Ltd.",
-        "category": "Música",
-        "rating": 4.7,
-        "icon": "https://upload.wikimedia.org/wikipedia/commons/2/26/Spotify_logo_with_text.svg",
-        "description": "Spotify es una plataforma de streaming de música que ofrece acceso a millones de canciones y podcasts.",
-        "downloads": "1.0 B",
-        "security": true,
-        "version": "8.7.78.1344",
-        "isAvailable": true,
-        "platforms": {
-            "android": "https://play.google.com/store/apps/details?id=com.spotify.music",
-            "ios": "https://apps.apple.com/us/app/spotify/id324684580"
-        },
-        "previousVersions": ["8.7.78.1223", "8.7.77.1325", "8.7.76.1209"],
-        "screenshots": [
-            "https://cdn6.aptoide.com/imgs/7/9/5/795d2b573d7cb00a073f48b53f59fe0c_screen.jpg",
-            "https://cdn6.aptoide.com/imgs/0/2/4/0249b87b38dcd670d51261f8b6cd41e2_screen.jpg",
-            "https://cdn6.aptoide.com/imgs/7/e/3/7e32be3514c953b93d8c115b1b5366fb_screen.jpg"
-        ]
-    },
-      {
-    "name": "TikTok",
-    "developer": "ByteDance",
-    "category": "Redes sociales",
-    "rating": 4.6,
-    "icon": "https://cdn.pixabay.com/photo/2021/06/15/12/28/tiktok-6338429_960_720.png",
-    "description": "TikTok es una aplicación para crear, ver y compartir videos cortos en un formato vertical, donde los usuarios pueden aplicar efectos especiales, música y más.",
-    "downloads": "733 millones",
-    "security": true,
-    "version": "23.2.4",
-    "isAvailable": false,
-    "platforms": {
-        "android": "https://play.google.com/store/apps/details?id=com.zhiliaoapp.musically",
-        "ios": "https://apps.apple.com/us/app/tiktok/id835599320"
-    },
-    "previousVersions": ["23.1.2", "23.0.7", "22.9.8"],
-    "downloadLink": "https://play.google.com/store/apps/details?id=com.zhiliaoapp.musically",
-    "screenshots": [
-        "https://upload.wikimedia.org/wikipedia/commons/7/72/TikTok_screenshot_1.png",
-        "https://upload.wikimedia.org/wikipedia/commons/7/70/TikTok_screenshot_2.png",
-        "https://upload.wikimedia.org/wikipedia/commons/a/a5/TikTok_screenshot_3.png"
-    ]
-},
-    
-     {
-        "name": "Wkype",
-        "developer": "Glam Works Inc.",
-        "category": "Entretenimiento",
-        "rating": 5.0,
-        "icon": "https://img.utdstc.com/icon/6e9/b83/6e9b83421712247bd9f8dcf757952aa54306b0a8d4e1daafece336a941b012e2:200",
-        "description": "¡Descubre un mundo de información al alcance de tu mano con nuestra aplicación!, esta aplicación permite a los usuarios buscar artículos sobre innumerables temas, mantenerse actualizados sobre sus favoritos e interactuar dando “Me gusta” y siguiendo artículos para acceder fácilmente a ellos.",
-        "downloads": "1K+",
-        "security": true,
-        "version": "2.4.5",
-       isAvailable: false,
+                name: "Facebook",
+                developer: "Meta",
+                category: "Redes sociales",
+                rating: 4.2,
+                size: "85.7 MB",
+                icon: "https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg",
+                description: "Facebook es una red social donde los usuarios pueden compartir contenido.",
+                downloads: "403.4 M",
+                bannerGradient: "45deg, #1877f2, #0a3d62",
+                security: true,
+                version: "497.0.0.47.36",
+                isAvailable: false,
                 platforms: {
                     android: "https://play.google.com/store/apps/details?id=com.facebook.katana",
                     ios: "https://apps.apple.com/us/app/facebook/id284882215"
                 },
-        "previousVersions": ["2.4.4", "2.4.3", "2.4.2"],
-        "downloadLink": "https://followwiki.uptodown.com/android/descargar",
-        "screenshots": [
-            "https://img.utdstc.com/screen/95b/9b9/95b9b9ed5387ca47da8bb076e763a218ed5f3550a0d41deec39204d067d7a0ef:800",
-            "https://img.utdstc.com/screen/320/6c7/3206c75dc6b8fb58e5c8655b3f24341ebb41135397fc70b225f16d2b02bcd2c5:800",
-            "https://img.utdstc.com/screen/b39/297/b3929746de5427195ce97976e0177f5ed47635e0568df0ca345a1d3115f24f64:800"
-        ]
-    }
+                previousVersions: ["496.0.0.45.65", "495.0.0.45.201", "494.1.0.56.73"],
+                screenshots: [
+                    "/api/placeholder/200/400",
+                    "/api/placeholder/200/400",
+                    "/api/placeholder/200/400"
+                ]
+            },
+            {
+                name: "WhatsApp",
+                developer: "Meta Platforms",
+                category: "Mensajería",
+                rating: 4.7,
+                size: "124.8 MB",
+                icon: "https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg",
+                description: "WhatsApp es una aplicación de mensajería instantánea gratuita...",
+                downloads: "10B+",
+                bannerGradient: "45deg, #25D366, #128C7E",
+                security: true,
+                version: "2.23.3.77",
+                isAvailable: true,
+                platforms: {
+                    android: "https://play.google.com/store/apps/details?id=com.whatsapp",
+                    ios: "https://apps.apple.com/us/app/whatsapp-messenger/id310633997"
+                },
+                previousVersions: ["2.23.3.76", "2.23.2.71", "2.22.20.75"],
+                screenshots: [
+                    "/api/placeholder/200/400",
+                    "/api/placeholder/200/400",
+                    "/api/placeholder/200/400"
+                ]
+            },
+            {
+                name: "Instagram",
+                developer: "Meta",
+                category: "Redes sociales",
+                rating: 4.5,
+                size: "156.2 MB",
+                icon: "https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg",
+                description: "Comparte fotos y videos con tus amigos...",
+                downloads: "2B+",
+                bannerGradient: "45deg, #833AB4, #FD1D1D",
+                security: true,
+                version: "275.0.0.27.98",
+                isAvailable: true,
+                platforms: {
+                    android: "https://play.google.com/store/apps/details?id=com.instagram.android",
+                    ios: "https://apps.apple.com/us/app/instagram/id389801252"
+                },
+                previousVersions: ["274.0.0.26.90", "273.0.0.25.85"],
+                screenshots: [
+                    "/api/placeholder/200/400",
+                    "/api/placeholder/200/400",
+                    "/api/placeholder/200/400"
+                ]
+            }
         ];
 
         function parseDownloads(downloads) {
@@ -882,7 +878,6 @@
             return parseInt(downloads.replace('M+', '')) * 1000000;
         }
 
-        // Función para obtener el enlace correcto según el dispositivo
         function getStoreLink(app) {
             const device = detectDevice();
             if (!app.isAvailable) {
@@ -896,40 +891,80 @@
             return app.platforms.android || app.platforms.ios;
         }
 
-        const sortedApps = [...apps].sort((a, b) => parseDownloads(b.downloads) - parseDownloads(a.downloads));
-        const appsContainer = document.getElementById('appsContainer');
-        const appModal = document.getElementById('appModal');
-        const modalContent = document.getElementById('modalContent');
-        const backButton = document.getElementById('backButton');
-        const searchInput = document.getElementById('searchInput');
+        // Mostrar banners destacados
+        function displayFeaturedApps() {
+            const featuredApps = document.getElementById('featuredApps');
+            featuredApps.innerHTML = '';
 
-        function displayApps(filteredApps) {
-            appsContainer.innerHTML = '';
-            filteredApps.forEach(app => {
-                const storeLink = getStoreLink(app);
-                const downloadText = !app.isAvailable ? 'No disponible' : 
-                    `Descargar en ${detectDevice() === 'ios' ? 'App Store' : 'Play Store'}`;
+            // Mostrar solo las 3 apps más populares
+            const topApps = [...apps].sort((a, b) => parseDownloads(b.downloads) - parseDownloads(a.downloads));
+            topApps.slice(0, 3).forEach(app => {
+                const banner = document.createElement('div');
+                banner.classList.add('featured-banner');
+                banner.style.background = `linear-gradient(${app.bannerGradient})`;
                 
-                const appCard = document.createElement('div');
-                appCard.classList.add('app-card');
-                appCard.innerHTML = `
-                    <div class="app-header">
-                        <img class="app-icon" src="${app.icon}" alt="${app.name}">
-                        <div class="app-info">
-                            <div class="app-name">${app.name}</div>
-                            <div class="app-developer">${app.developer}</div>
-                            <div class="verified-badge"><i class="fas fa-check-circle"></i> Verificado</div>
-                            <div class="rating">
-                                <span class="stars">★★★★★</span>
-                                <span>${app.rating}</span>
-                            </div>
+                banner.innerHTML = `
+                    <div class="featured-content">
+                        <img class="featured-icon" src="${app.icon}" alt="${app.name}">
+                        <div class="featured-info">
+                            <h2>${app.name}</h2>
+                            <p>${app.description}</p>
                         </div>
-                        <div class="download-btn">${downloadText}</div>
                     </div>
                 `;
-                appCard.addEventListener('click', () => openAppModal(app));
-                appsContainer.appendChild(appCard);
+
+                banner.addEventListener('click', () => openAppModal(app));
+                featuredApps.appendChild(banner);
             });
+        }
+
+        function displayApps(filteredApps) {
+            const appsContainer = document.getElementById('appsContainer');
+            const featuredApps = document.getElementById('featuredApps');
+            
+            if (filteredApps.length > 0) {
+                featuredApps.style.display = 'none';
+                appsContainer.style.display = 'block';
+                
+                appsContainer.innerHTML = '';
+                filteredApps.forEach(app => {
+                    const storeLink = getStoreLink(app);
+                    const downloadText = !app.isAvailable ? 'No disponible' : 
+                        `Descargar en ${detectDevice() === 'ios' ? 'App Store' : 'Play Store'}`;
+                    
+                    const appCard = document.createElement('div');
+                    appCard.classList.add('app-card');
+                    appCard.innerHTML = `
+                        <div class="app-header">
+                            <img class="app-icon" src="${app.icon}" alt="${app.name}">
+                            <div class="app-info">
+                                <div class="app-name">${app.name}</div>
+                                <div class="app-developer">
+                                    <span class="developer-link" onclick="showDeveloperApps('${app.developer}', event)">${app.developer}</span>
+                                </div>
+                                <div class="verified-badge"><i class="fas fa-check-circle"></i> Verificado</div>
+                                <div class="rating">
+                                    <span class="stars">★★★★★</span>
+                                    <span>${app.rating}</span>
+                                </div>
+                                <div class="app-size">
+                                    <i class="fas fa-hdd"></i> ${app.size}
+                                </div>
+                            </div>
+                            <div class="download-btn">${downloadText}</div>
+                        </div>
+                    `;
+                    appCard.addEventListener('click', (e) => {
+                        if (!e.target.classList.contains('developer-link')) {
+                            openAppModal(app);
+                        }
+                    });
+                    appsContainer.appendChild(appCard);
+                });
+            } else {
+                appsContainer.style.display = 'none';
+                featuredApps.style.display = 'block';
+            }
         }
 
         function openAppModal(app) {
@@ -937,70 +972,73 @@
             const availabilityWarning = !app.isAvailable ? 
                 `<div class="availability-warning">
                     <i class="fas fa-exclamation-triangle"></i>
-                    Esta aplicación no está disponible actualmente en su país. Por favor, inténtelo más tarde.
+                    Esta aplicación no está disponible actualmente en su país.
                 </div>` : '';
 
+            const modalContent = document.getElementById('modalContent');
             modalContent.innerHTML = `
-                ${availabilityWarning}
-                <div class="app-banner">
-                    <img src="${app.icon}" alt="${app.name}">
+                <div class="modal-banner" style="background: linear-gradient(${app.bannerGradient})">
+                    <div class="modal-banner-content">
+                        <img class="modal-banner-icon" src="${app.icon}" alt="${app.name}">
+                        <h2>${app.name}</h2>
+                    </div>
                 </div>
-                <h3>${app.name}</h3>
-                <p>${app.description}</p>
 
-                <div class="screenshots-section">
-                    <div class="screenshots-container">
-                        <button class="screenshot-nav prev">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <button class="screenshot-nav next">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-                        <div class="screenshots-wrapper">
+                ${availabilityWarning}
+
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-label">Categoría</div>
+                        <div>${app.category}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Versión</div>
+                        <div>${app.version}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Tamaño</div>
+                        <div>${app.size}</div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-label">Descargas</div>
+                        <div>${app.downloads}</div>
+                    </div>
+                </div>
+
+                <div class="screenshots-container">
+                    <div class="screenshots-wrapper">
+                        <div class="screenshots">
                             ${app.screenshots.map(src => `
                                 <img src="${src}" alt="Screenshot de ${app.name}" class="screenshot">
                             `).join('')}
                         </div>
                     </div>
-                    <div class="screenshot-dots">
+                    <div class="carousel-dots">
                         ${app.screenshots.map((_, index) => `
-                            <div class="screenshot-dot ${index === 0 ? 'active' : ''}" data-index="${index}"></div>
+                            <div class="carousel-dot ${index === 0 ? 'active' : ''}" data-index="${index}"></div>
                         `).join('')}
                     </div>
                 </div>
 
-                <div class="info-grid">
-                    <div class="info-item">
-                        <div class="info-label">Categoría</div>
-                        <div class="info-value">${app.category}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Versión</div>
-                        <div class="info-value">${app.version}</div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-label">Descargas</div>
-                        <div class="info-value">${app.downloads}</div>
-                    </div>
-                </div>
+                <p>${app.description}</p>
 
                 <div class="action-buttons">
                     ${storeLink ? 
-                        `<a class="action-btn primary-btn" href="${storeLink}" target="_blank">
+                        `<a href="${storeLink}" class="action-btn primary-btn" target="_blank">
                             Descargar ${detectDevice() === 'ios' ? 'en App Store' : 'en Play Store'}
                         </a>` :
-                        `<button class="action-btn primary-btn" disabled>
-                            No disponible
-                        </button>`
+                        `<button class="action-btn primary-btn" disabled>No disponible</button>`
                     }
-                    <button class="action-btn secondary-btn" onclick="togglePreviousVersions('${app.name}')">Ver más</button>
+                    <button class="action-btn secondary-btn" onclick="togglePreviousVersions('${app.name}')">
+                        Ver versiones anteriores
+                    </button>
                 </div>
 
                 <div class="security-info">
                     <div class="virustotal-badge">
                         <i class="fas fa-shield-alt"></i> Verificado por VirusTotal
                     </div>
-                    <div class="security-details">Sin problemas de seguridad detectados.</div>
+                    <p>Esta aplicación ha pasado nuestras verificaciones de seguridad.</p>
                 </div>
 
                 <div class="previous-versions" id="${app.name}-versions" style="display:none;">
@@ -1011,69 +1049,100 @@
                 </div>
             `;
 
-            // Inicializar el carrusel de screenshots
-            const container = modalContent.querySelector('.screenshots-container');
+            document.getElementById('appModal').classList.add('active');
+            initializeCarousel();
+        }
+
+        function initializeCarousel() {
+            const container = document.querySelector('.screenshots-container');
             const wrapper = container.querySelector('.screenshots-wrapper');
-            const prevBtn = container.querySelector('.screenshot-nav.prev');
-            const nextBtn = container.querySelector('.screenshot-nav.next');
-            const dots = modalContent.querySelectorAll('.screenshot-dot');
+            const screenshots = container.querySelector('.screenshots');
+            const dots = container.querySelectorAll('.carousel-dot');
             let currentIndex = 0;
 
             function updateCarousel(index) {
                 const slideWidth = container.querySelector('.screenshot').offsetWidth + 15;
-                wrapper.style.transform = `translateX(-${slideWidth * index}px)`;
+                screenshots.style.transform = `translateX(-${slideWidth * index}px)`;
                 dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
             }
 
-            prevBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                if (currentIndex > 0) {
-                    currentIndex--;
-                    updateCarousel(currentIndex);
-                }
-            });
-
-            nextBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                if (currentIndex < app.screenshots.length - 1) {
-                    currentIndex++;
-                    updateCarousel(currentIndex);
-                }
-            });
-
             dots.forEach((dot, index) => {
-                dot.addEventListener('click', (e) => {
-                    e.stopPropagation();
+                dot.addEventListener('click', () => {
                     currentIndex = index;
                     updateCarousel(currentIndex);
                 });
             });
-
-            appModal.classList.add('active');
         }
 
-        function closeModal() {
-            appModal.classList.remove('active');
+        function showDeveloperApps(developer, event) {
+            event.stopPropagation();
+            const developerModal = document.getElementById('developerModal');
+            const developerAppsContainer = document.getElementById('developerApps');
+            
+            const developerApps = apps.filter(app => app.developer === developer);
+            
+            developerAppsContainer.innerHTML = '';
+            developerApps.forEach(app => {
+                const appElement = document.createElement('div');
+                appElement.classList.add('app-card');
+                appElement.innerHTML = `
+                    <div class="app-header">
+                        <img class="app-icon" src="${app.icon}" alt="${app.name}">
+                        <div class="app-info">
+                            <div class="app-name">${app.name}</div>
+                            <div class="app-developer">${app.developer}</div>
+                            <div class="app-size">
+                                <i class="fas fa-hdd"></i> ${app.size}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                appElement.addEventListener('click', () => {
+                    developerModal.style.display = 'none';
+                    openAppModal(app);
+                });
+                developerAppsContainer.appendChild(appElement);
+            });
+            
+            developerModal.style.display = 'block';
         }
-
-        backButton.addEventListener('click', closeModal);
 
         function togglePreviousVersions(appName) {
             const versionsElement = document.getElementById(`${appName}-versions`);
             versionsElement.style.display = versionsElement.style.display === 'none' ? 'block' : 'none';
         }
 
-        searchInput.addEventListener('input', function() {
-            const searchTerm = this.value.toLowerCase();
-            const filteredApps = sortedApps.filter(app => 
-                app.name.toLowerCase().includes(searchTerm) ||
-                app.developer.toLowerCase().includes(searchTerm)
-            );
-            displayApps(filteredApps);
+        // Event Listeners
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            if (searchTerm) {
+                const filteredApps = apps.filter(app => 
+                    app.name.toLowerCase().includes(searchTerm) ||
+                    app.developer.toLowerCase().includes(searchTerm)
+                );
+                displayApps(filteredApps);
+            } else {
+                displayApps([]);
+            }
         });
 
-        // Inicializar la visualización de aplicaciones
-        displayApps(sortedApps);
+        document.getElementById('backButton').addEventListener('click', () => {
+            document.getElementById('appModal').classList.remove('active');
+        });
+
+        document.getElementById('closeDeveloperModal').addEventListener('click', () => {
+            document.getElementById('developerModal').style.display = 'none';
+        });
+
+        window.addEventListener('click', (event) => {
+            const developerModal = document.getElementById('developerModal');
+            if (event.target === developerModal) {
+                developerModal.style.display = 'none';
+            }
+        });
+
+        // Inicializar la página
+        displayFeaturedApps();
     </script>
 </body>
 </html>
